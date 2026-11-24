@@ -1,50 +1,103 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿<!doctype html>
+<html lang="tr" data-bs-theme="dark">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - LootHub.Client.Mvc</title>
-    <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/LootHub.Client.Mvc.styles.css" asp-append-version="true" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] | LootHub</title>
+    <!-- ===== _Layout: <head> ===== -->
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="~/css/loothub.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">LootHub.Client.Mvc</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+    <!-- ===== _Layout: DUYURU ŞERİDİ ===== -->
+    <div class="lh-topbar text-center py-2 px-3">
+        <i class="bi bi-truck me-1"></i>Tüm siparişlerde ücretsiz kargo · <i class="bi bi-shield-lock mx-1"></i>iyzico ile güvenli ödeme
+    </div>
+    <!-- ===== _Layout: NAVBAR (giriş yapmış) ===== -->
+    <header class="lh-navbar sticky-top">
+        <nav class="navbar navbar-expand-lg py-2">
+            <div class="container">
+                <a class="navbar-brand me-4" href="index.html">Loot<span>Hub</span></a>
+                <form class="lh-search d-none d-lg-flex flex-grow-1 me-auto" role="search" action="products.html">
+                    <div class="input-group">
+                        <input class="form-control" type="search" name="search" placeholder="Mouse, klavye, kulaklık ara..." aria-label="Ürün ara">
+                        <button class="btn" type="submit" aria-label="Ara"><i class="bi bi-search"></i></button>
+                    </div>
+                </form>
+                <div class="d-flex align-items-center gap-1 ms-auto ms-lg-3">
+                    <div class="dropdown">
+                        <a class="lh-icon-btn d-inline-flex align-items-center gap-2 text-decoration-none" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person"></i><span class="d-none d-md-inline fs-6">Batuhan</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="orders.html"><i class="bi bi-box-seam me-2"></i>Siparişlerim</a></li>
+                            <li><a class="dropdown-item" href="addresses.html"><i class="bi bi-geo-alt me-2"></i>Adreslerim</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <!-- Sadece User.IsInRole("Admin") ise -->
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-speedometer2 me-2"></i>Yönetim paneli</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="login.html"><i class="bi bi-box-arrow-right me-2"></i>Çıkış yap</a></li>
+                        </ul>
+                    </div>
+                    <a class="lh-icon-btn" href="cart.html" aria-label="Sepet, 3 ürün"><i class="bi bi-bag"></i><span class="badge rounded-pill">3</span></a>
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - LootHub.Client.Mvc - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <!-- Kategori çubuğu: GET /api/categories -->
+        <div class="lh-catbar">
+            <div class="container d-flex gap-4 overflow-auto">
+                <a href="products.html"><i class="bi bi-grid"></i>Tüm ürünler</a>
+                <a href="products.html"><i class="bi bi-mouse"></i>Mouse</a>
+                <a href="products.html"><i class="bi bi-keyboard"></i>Klavye</a>
+                <a href="products.html"><i class="bi bi-headset"></i>Kulaklık</a>
+                <a href="products.html"><i class="bi bi-display"></i>Monitör</a>
+                <form class="d-lg-none ms-auto py-1" role="search" action="products.html">
+                    <a href="products.html" aria-label="Ara"><i class="bi bi-search"></i></a>
+                </form>
+            </div>
         </div>
-    </footer>
+    </header>
+
+    <main>
+        @RenderBody()
+    </main>
+
+
+<!-- ===== _Layout: FOOTER ===== -->
+<footer class="lh-footer mt-5">
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-lg-4">
+                <div class="lh-display fs-3 text-white">Loot<span class="text-accent">Hub</span></div>
+                <p class="mt-2 mb-0">Oyuncular için mouse, klavye, kulaklık ve monitör.</p>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h3>Alışveriş</h3>
+                <ul class="list-unstyled d-grid gap-2 mb-0"><li><a href="products.html">Tüm ürünler</a></li><li><a href="products.html">Mouse</a></li><li><a href="products.html">Klavye</a></li></ul>
+            </div>
+            <div class="col-6 col-lg-2">
+                <h3>Hesabım</h3>
+                <ul class="list-unstyled d-grid gap-2 mb-0"><li><a href="orders.html">Siparişlerim</a></li><li><a href="addresses.html">Adreslerim</a></li><li><a href="cart.html">Sepetim</a></li></ul>
+            </div>
+            <div class="col-lg-4">
+                <h3>Güvenli ödeme</h3>
+                <p class="mb-0"><i class="bi bi-shield-lock me-1"></i>Ödemeler iyzico üzerinden alınır, kart bilgilerin LootHub'a ulaşmaz.</p>
+            </div>
+        </div>
+        <hr class="my-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-2 small">
+            <span>© 2026 LootHub · Infotech bitirme projesi</span>
+            <a href="https://github.com/batueren0"><i class="bi bi-github me-1"></i>GitHub</a>
+        </div>
+    </div>
+</footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

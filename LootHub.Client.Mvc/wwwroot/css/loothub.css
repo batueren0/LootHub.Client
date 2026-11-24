@@ -1,0 +1,241 @@
+/* =========================================================
+   LootHub – tema dosyası (v2: "Volt")
+   Bootstrap 5.3 + data-bs-theme="dark" üzerine.
+   MVC: wwwroot/css/loothub.css, bootstrap.min.css'ten SONRA bağla.
+
+   Kurallar (tasarım kontrol listesi):
+   - Tek vurgu rengi (volt), iki font (Chakra Petch + Inter)
+   - Tüm metinler WCAG AA kontrastını geçer (gri metin bile ≥ 5:1)
+   - Anlam sadece renkle verilmez: rozetlerde ikon + yazı var
+   - Klavye odağı her zaman görünür, "hareketi azalt" ayarına uyulur
+   ========================================================= */
+
+:root,
+[data-bs-theme="dark"] {
+  --lh-bg: #0c0d0f;
+  --lh-surface: #141519;
+  --lh-surface-2: #1c1e23;
+  --lh-media: #17191d;           /* ürün görsel zemini */
+  --lh-border: #2a2d33;
+  --lh-border-strong: #3a3e46;
+  --lh-text: #ececee;
+  --lh-muted: #9ca2ad;           /* bg üzerinde 7.5:1 */
+  --lh-accent: #c8f031;          /* volt – tek vurgu rengi */
+  --lh-accent-hover: #b4dc1c;
+  --lh-accent-ink: #0c0d0f;      /* vurgu üstündeki yazı */
+  --lh-accent-soft: rgba(200, 240, 49, .10);
+
+  --bs-body-bg: var(--lh-bg);
+  --bs-body-color: var(--lh-text);
+  --bs-secondary-color: var(--lh-muted);
+  --bs-border-color: var(--lh-border);
+  --bs-tertiary-bg: var(--lh-surface);
+  --bs-secondary-bg: var(--lh-surface-2);
+  --bs-link-color: var(--lh-text);
+  --bs-link-color-rgb: 236, 236, 238;
+  --bs-link-hover-color: var(--lh-accent);
+  --bs-link-hover-color-rgb: 200, 240, 49;
+  --bs-link-decoration: none;
+  --bs-border-radius: .5rem;
+  --bs-border-radius-lg: .75rem;
+  --bs-body-font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --bs-heading-color: #f5f5f6;
+}
+
+body { min-height: 100vh; display: flex; flex-direction: column; }
+main { flex: 1 0 auto; }
+a { text-decoration: none; }
+
+h1, h2, h3, h4, .lh-display, .navbar-brand {
+  font-family: "Chakra Petch", "Inter", sans-serif;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.lh-eyebrow { font-size: .78rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--lh-accent); }
+.text-accent { color: var(--lh-accent) !important; }
+
+/* ---------- Butonlar ---------- */
+.btn { font-weight: 600; }
+.btn-primary {
+  --bs-btn-color: var(--lh-accent-ink);
+  --bs-btn-bg: var(--lh-accent);
+  --bs-btn-border-color: var(--lh-accent);
+  --bs-btn-hover-color: var(--lh-accent-ink);
+  --bs-btn-hover-bg: var(--lh-accent-hover);
+  --bs-btn-hover-border-color: var(--lh-accent-hover);
+  --bs-btn-active-color: var(--lh-accent-ink);
+  --bs-btn-active-bg: var(--lh-accent-hover);
+  --bs-btn-active-border-color: var(--lh-accent-hover);
+  --bs-btn-disabled-color: var(--lh-muted);
+  --bs-btn-disabled-bg: var(--lh-surface-2);
+  --bs-btn-disabled-border-color: var(--lh-border);
+}
+.btn-outline-light {
+  --bs-btn-color: var(--lh-text);
+  --bs-btn-border-color: var(--lh-border-strong);
+  --bs-btn-hover-color: var(--lh-accent-ink);
+  --bs-btn-hover-bg: var(--lh-text);
+  --bs-btn-hover-border-color: var(--lh-text);
+}
+.btn-ghost { color: var(--lh-muted); background: transparent; border: 0; }
+.btn-ghost:hover { color: var(--lh-text); }
+
+/* ---------- Üst duyuru şeridi + navbar ---------- */
+.lh-topbar { background: var(--lh-accent); color: var(--lh-accent-ink); font-size: .82rem; font-weight: 600; }
+.lh-navbar { background: var(--lh-bg); border-bottom: 1px solid var(--lh-border); }
+.lh-navbar .navbar-brand { font-size: 1.6rem; color: #fff; }
+.lh-navbar .navbar-brand span { color: var(--lh-accent); }
+.lh-navbar .nav-link { color: var(--lh-muted); font-weight: 500; }
+.lh-navbar .nav-link:hover, .lh-navbar .nav-link.active { color: var(--lh-text); }
+.lh-search { max-width: 520px; }
+.lh-search .form-control { border-right: 0; }
+.lh-search .btn { border: 1px solid var(--lh-border); border-left: 0; background: var(--lh-surface-2); color: var(--lh-muted); }
+.lh-icon-btn { position: relative; color: var(--lh-text); font-size: 1.35rem; padding: .35rem .5rem; }
+.lh-icon-btn .badge { position: absolute; top: 0; right: -.15rem; font-size: .62rem; background: var(--lh-accent); color: var(--lh-accent-ink); }
+.lh-catbar { border-bottom: 1px solid var(--lh-border); background: var(--lh-surface); }
+.lh-catbar a { color: var(--lh-muted); font-size: .9rem; padding: .65rem 0; display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap; }
+.lh-catbar a:hover, .lh-catbar a.active { color: var(--lh-text); box-shadow: inset 0 -2px 0 var(--lh-accent); }
+
+/* ---------- Yüzeyler ---------- */
+.lh-surface { background: var(--lh-surface); border: 1px solid var(--lh-border); border-radius: var(--bs-border-radius-lg); }
+.card { --bs-card-bg: var(--lh-surface); --bs-card-border-color: var(--lh-border); --bs-card-border-radius: var(--bs-border-radius-lg); }
+
+/* ---------- Hero ---------- */
+.lh-hero { background: var(--lh-surface); border: 1px solid var(--lh-border); border-radius: 1rem; overflow: hidden; }
+.lh-hero h1 { font-size: clamp(2.2rem, 4.6vw, 3.6rem); line-height: 1.02; }
+.lh-hero-media {
+  background-color: var(--lh-media);
+  background-image:
+    linear-gradient(var(--lh-border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--lh-border) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: center;
+  min-height: 320px;
+  display: grid; place-items: center;
+}
+.lh-hero-media img { width: min(78%, 420px); filter: drop-shadow(0 30px 40px rgba(0,0,0,.55)); }
+
+/* ---------- Kategori kutuları ---------- */
+.lh-cat { display: block; color: var(--lh-text); overflow: hidden; transition: border-color .15s; }
+.lh-cat .lh-media { aspect-ratio: 4 / 3; }
+.lh-cat:hover { border-color: var(--lh-accent); color: var(--lh-text); }
+.lh-cat:hover img { transform: scale(1.05); }
+
+/* ---------- Ürün görseli ---------- */
+.lh-media { background: var(--lh-media); display: grid; place-items: center; overflow: hidden; }
+.lh-media img { width: 78%; height: auto; transition: transform .25s ease; }
+.lh-media-square { aspect-ratio: 1 / 1; border-radius: var(--bs-border-radius-lg); border: 1px solid var(--lh-border); }
+.lh-media-thumb { width: 84px; aspect-ratio: 1 / 1; border-radius: var(--bs-border-radius); flex-shrink: 0; }
+
+/* ---------- Ürün kartı ---------- */
+.lh-card { overflow: hidden; transition: border-color .15s, transform .15s; }
+.lh-card .lh-media { aspect-ratio: 1 / 1; border-bottom: 1px solid var(--lh-border); }
+.lh-card:hover { border-color: var(--lh-border-strong); transform: translateY(-2px); }
+.lh-card:hover .lh-media img { transform: scale(1.04); }
+.lh-card .lh-card-title { color: var(--lh-text); font-weight: 600; line-height: 1.3; }
+.lh-card .lh-card-title::after { content: ""; position: absolute; inset: 0; }   /* tüm kart tıklanabilir */
+.lh-card .btn, .lh-card .lh-fav { position: relative; z-index: 1; }
+.lh-brand { font-size: .76rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--lh-muted); }
+.lh-fav { position: absolute; top: .6rem; right: .6rem; z-index: 2; color: var(--lh-muted); background: rgba(12,13,15,.7); border: 0; width: 2.1rem; height: 2.1rem; border-radius: 50%; }
+.lh-fav:hover { color: var(--lh-text); }
+
+.lh-price { font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 1.3rem; color: #fff; white-space: nowrap; }
+.lh-price-lg { font-size: 2.3rem; }
+
+/* Stok göstergesi: nokta + yazı (renk tek başına anlam taşımaz) */
+.lh-stock { font-size: .82rem; display: inline-flex; align-items: center; gap: .4rem; color: var(--lh-muted); }
+.lh-stock::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: currentColor; }
+.lh-stock-in { color: #4ade80; }
+.lh-stock-low { color: #fbbf24; }
+.lh-stock-out { color: #f87171; }
+
+/* ---------- Promosyon bandı ---------- */
+.lh-promo { background: var(--lh-accent); color: var(--lh-accent-ink); border-radius: 1rem; overflow: hidden; }
+.lh-promo h2 { color: var(--lh-accent-ink); }
+.lh-promo .btn { --bs-btn-bg: var(--lh-accent-ink); --bs-btn-color: #fff; --bs-btn-border-color: var(--lh-accent-ink); --bs-btn-hover-bg: #26292f; --bs-btn-hover-color: #fff; }
+.lh-promo img { width: 100%; max-width: 360px; filter: drop-shadow(0 20px 30px rgba(0,0,0,.35)); }
+
+.lh-brands span { font-family: "Chakra Petch", sans-serif; font-weight: 700; font-size: 1.35rem; color: #5c626d; letter-spacing: .04em; }
+.lh-brands span:hover { color: var(--lh-text); }
+
+/* ---------- Form ---------- */
+.form-control, .form-select { background-color: var(--lh-surface-2); border-color: var(--lh-border); }
+.form-control::placeholder { color: #7d838e; }
+.form-control:focus, .form-select:focus { border-color: var(--lh-accent); box-shadow: 0 0 0 .2rem var(--lh-accent-soft); background-color: var(--lh-surface-2); }
+.form-check-input { background-color: var(--lh-surface-2); border-color: var(--lh-border-strong); }
+.form-check-input:checked { background-color: var(--lh-accent); border-color: var(--lh-accent); }
+.form-switch .form-check-input:checked { --bs-form-switch-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%230c0d0f'/%3e%3c/svg%3e"); }
+.form-check-input:checked[type=radio] { --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%230c0d0f'/%3e%3c/svg%3e"); }
+.form-check-input:checked[type=checkbox] { --bs-form-check-bg-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%230c0d0f' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e"); }
+
+/* Seçilebilir kart (checkout adresi) */
+.lh-option { cursor: pointer; transition: border-color .15s, background-color .15s; }
+.lh-option .lh-check { color: transparent; }
+.btn-check:checked + .lh-option { border-color: var(--lh-accent); background: var(--lh-accent-soft); }
+.btn-check:checked + .lh-option .lh-check { color: var(--lh-accent); }
+.btn-check:focus-visible + .lh-option { outline: 2px solid var(--lh-accent); outline-offset: 2px; }
+
+/* Aktif filtre etiketi */
+.lh-chip { display: inline-flex; align-items: center; gap: .35rem; padding: .25rem .65rem; border: 1px solid var(--lh-border-strong); border-radius: 999px; font-size: .82rem; color: var(--lh-text); background: var(--lh-surface); }
+.lh-chip:hover { border-color: var(--lh-accent); color: var(--lh-text); }
+
+/* ---------- Checkout adımları ---------- */
+.lh-checkout-steps { display: flex; gap: .75rem; align-items: center; font-size: .9rem; color: var(--lh-muted); flex-wrap: wrap; }
+.lh-checkout-steps .n { display: inline-grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%; border: 1px solid var(--lh-border-strong); margin-right: .4rem; font-size: .8rem; }
+.lh-checkout-steps .done, .lh-checkout-steps .current { color: var(--lh-text); }
+.lh-checkout-steps .done .n { background: var(--lh-surface-2); }
+.lh-checkout-steps .current .n { background: var(--lh-accent); border-color: var(--lh-accent); color: var(--lh-accent-ink); font-weight: 700; }
+.lh-checkout-steps .sep { width: 2rem; height: 1px; background: var(--lh-border-strong); }
+
+/* ---------- Sipariş durum rozetleri (OrderStatus enum adlarıyla birebir) ---------- */
+.lh-status { display: inline-flex; align-items: center; gap: .35rem; font-weight: 600; font-size: .8rem; padding: .3rem .6rem; border-radius: 999px; }
+.lh-status-PendingPayment { background: rgba(251, 191, 36, .12); color: #fbbf24; }
+.lh-status-Paid           { background: rgba(125, 211, 252, .12); color: #7dd3fc; }
+.lh-status-Shipped        { background: var(--lh-accent-soft); color: var(--lh-accent); }
+.lh-status-Delivered      { background: rgba(74, 222, 128, .12); color: #4ade80; }
+.lh-status-Cancelled      { background: rgba(248, 113, 113, .12); color: #f87171; }
+.lh-status-Returned       { background: rgba(203, 213, 225, .10); color: #cbd5e1; }
+
+/* Sipariş zaman çizelgesi */
+.lh-steps { display: flex; }
+.lh-step { flex: 1; text-align: center; font-size: .82rem; color: var(--lh-muted); position: relative; }
+.lh-step::before { content: ""; position: absolute; top: 1rem; left: -50%; width: 100%; height: 2px; background: var(--lh-border-strong); z-index: 0; }
+.lh-step:first-child::before { display: none; }
+.lh-step .dot { position: relative; z-index: 1; width: 2rem; height: 2rem; margin: 0 auto .45rem; border-radius: 50%; display: grid; place-items: center; background: var(--lh-surface-2); border: 1px solid var(--lh-border-strong); }
+.lh-step.done { color: var(--lh-text); }
+.lh-step.done::before { background: var(--lh-accent); }
+.lh-step.done .dot { background: var(--lh-accent); border-color: var(--lh-accent); color: var(--lh-accent-ink); }
+
+/* ---------- Tablo, breadcrumb, sayfalama ---------- */
+.table { --bs-table-bg: transparent; --bs-table-border-color: var(--lh-border); }
+.table > :not(caption) > * > * { padding: .9rem .75rem; }
+.breadcrumb { --bs-breadcrumb-divider-color: var(--lh-muted); --bs-breadcrumb-item-active-color: var(--lh-muted); font-size: .85rem; }
+.breadcrumb a { color: var(--lh-muted); }
+.breadcrumb a:hover { color: var(--lh-text); }
+.pagination {
+  --bs-pagination-bg: var(--lh-surface); --bs-pagination-border-color: var(--lh-border);
+  --bs-pagination-color: var(--lh-text); --bs-pagination-hover-bg: var(--lh-surface-2); --bs-pagination-hover-color: #fff;
+  --bs-pagination-active-bg: var(--lh-accent); --bs-pagination-active-border-color: var(--lh-accent); --bs-pagination-active-color: var(--lh-accent-ink);
+  --bs-pagination-disabled-bg: var(--lh-surface); --bs-pagination-focus-box-shadow: 0 0 0 .2rem var(--lh-accent-soft);
+}
+.dropdown-menu { --bs-dropdown-bg: var(--lh-surface-2); --bs-dropdown-border-color: var(--lh-border); --bs-dropdown-link-active-bg: var(--lh-accent); --bs-dropdown-link-active-color: var(--lh-accent-ink); }
+.modal { --bs-modal-bg: var(--lh-surface); --bs-modal-border-color: var(--lh-border); }
+
+/* ---------- Footer ---------- */
+.lh-footer { border-top: 1px solid var(--lh-border); background: var(--lh-surface); color: var(--lh-muted); font-size: .9rem; }
+.lh-footer h3 { font-size: .95rem; color: var(--lh-text); }
+.lh-footer a { color: var(--lh-muted); }
+.lh-footer a:hover { color: var(--lh-text); }
+
+/* ---------- Erişilebilirlik ---------- */
+:focus-visible { outline: 2px solid var(--lh-accent); outline-offset: 2px; }
+.btn:focus-visible { box-shadow: 0 0 0 .2rem var(--lh-accent-soft); }
+label[for], .lh-option, .lh-chip, .dropdown-item { cursor: pointer; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* SADECE TASARIM DOSYASI İÇİN: koşullu blokları işaretler.
+   MVC'de bu sınıfı sil, bloğu @if ile sar. */
+.lh-design-note { position: relative; outline: 1px dashed rgba(251, 191, 36, .7); outline-offset: 6px; }
+.lh-design-note::before { content: attr(data-note); position: absolute; top: -1.75rem; right: 0; font-size: .7rem; color: #fbbf24; }
