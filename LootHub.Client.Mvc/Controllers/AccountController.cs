@@ -1,4 +1,5 @@
-﻿using LootHub.Client.Application.DTOs.Auth;
+﻿using LootHub.Client.Application.Common;
+using LootHub.Client.Application.DTOs.Auth;
 using LootHub.Client.Application.Services.Interfaces;
 using LootHub.Client.Mvc.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -60,7 +61,7 @@ public class AccountController(IAuthService authService) : Controller
             new(ClaimTypes.NameIdentifier, response.UserId.ToString()),
             new(ClaimTypes.Name, response.FirstName),
             new(ClaimTypes.Email, response.Email),
-            new("access_token", response.Token)
+            new(ClaimNames.AccessToken, response.Token)
         };
 
         foreach (var role in response.Roles)
@@ -73,5 +74,35 @@ public class AccountController(IAuthService authService) : Controller
             CookieAuthenticationDefaults.AuthenticationScheme,
             principal, new AuthenticationProperties { IsPersistent = true, ExpiresUtc = response.ExpiresAt }
             );
+    }
+
+    [HttpGet]
+    public IActionResult Register()
+    {
+        if (User.Identity?.IsAuthenticated == true)
+            return RedirectToAction("Index", "Home");
+
+        return View(new RegisterViewModel());
+    }
+
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Register(RegisterViewModel model, CancellationToken ct)
+    {
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var result = await authService.RegisterAsync(new RegisterRequest(model.FirstName, model.LastName, model.PhoneNumber, model.Email, model.Password), ct);
+
+        if (!result.IsSuccess)
+        {
+            ModelState.AddModelError(string.Empty, result.ErrorMessage ?? "Kayıt yapılamadı.");
+            return View(model);
+        }
+
+        await SignInAsync(result.Data!);
+
+        return RedirectToAction("Index", "Home");
     }
 }

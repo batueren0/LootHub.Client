@@ -1,0 +1,51 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Kayıt ol";
+}
+
+<div class="container py-5" style="max-width:980px">
+    <div class="row g-0 lh-surface overflow-hidden" style="border-radius:1rem">
+        <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-center lh-hero-media p-5" style="border-radius:1rem 0 0 1rem; place-items:initial">
+            <div class="lh-display fs-2 text-white mb-4">Loot<span class="text-accent">Hub</span></div>
+            <ul class="list-unstyled d-grid gap-3 mb-0">
+                <li><i class="bi bi-truck text-accent me-2"></i>Tüm siparişlerde ücretsiz kargo</li>
+                <li><i class="bi bi-shield-lock text-accent me-2"></i>iyzico ile güvenli ödeme</li>
+                <li><i class="bi bi-box-seam text-accent me-2"></i>Siparişlerini tek yerden takip et</li>
+            </ul>
+        </div>
+        <div class="col-lg-6 p-4 p-md-5">
+            <h1 class="h3 mb-1">Hesap oluştur</h1>
+            <p class="text-secondary small mb-4">Birkaç saniye sürer.</p>
+            <div asp-validation-summary="ModelOnly" class="text-danger small"></div>
+            <form class="d-grid gap-3" asp-action="Register" method="post">
+                <div>
+                    <label asp-for="FirstName" class="form-label small">İsim</label><input asp-for="FirstName" class="form-control" autocomplete="given-name"> <span asp-validation-for="FirstName" class="text-danger small"></span>
+                </div>
+                <div>
+                    <label asp-for="LastName" class="form-label small">Soyisim</label><input asp-for="LastName" class="form-control" autocomplete="family-name"> <span asp-validation-for="LastName" class="text-danger small"></span>
+                </div>
+
+                <div>
+                    <label asp-for="PhoneNumber" class="form-label small">Telefon</label><input asp-for="PhoneNumber" class="form-control" type="tel" autocomplete="tel" placeholder="5321234567"> <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Email" class="form-label small">E-posta</label><input asp-for="Email" class="form-control" autocomplete="email"> <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+                <div>
+                    <label asp-for="Password" class="form-label small">Şifre</label><input asp-for="Password" class="form-control" autocomplete="new-password" type="password"><span asp-validation-for="Password" class="text-danger small"></span>
+                    <div class="form-text">En az 8 karakter; büyük harf, küçük harf, rakam ve sembol içermeli.</div>
+                </div>
+                <div>
+                    <label asp-for="ConfirmPassword" class="form-label small">Şifre tekrar</label><input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password" type="password"><span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
+                </div>
+                <button class="btn btn-primary btn-lg mt-2">Kayıt ol</button>
+            </form>
+            <p class="small text-secondary text-center mt-4 mb-0">Zaten hesabın var mı? <a asp-action="Login" class="text-accent">Giriş yap</a></p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
