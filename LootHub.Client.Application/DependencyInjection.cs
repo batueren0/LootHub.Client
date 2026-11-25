@@ -1,4 +1,6 @@
 ﻿using LootHub.Client.Application.Common;
+using LootHub.Client.Application.Services;
+using LootHub.Client.Application.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,6 +15,8 @@ public static class DependencyInjection
         {
             client.BaseAddress = baseAddress;
         }); 
+
+        services.AddScoped<IAuthService, AuthService>();
 
         return services;
     }

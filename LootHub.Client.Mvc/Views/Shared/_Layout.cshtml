@@ -29,20 +29,34 @@
                     </div>
                 </form>
                 <div class="d-flex align-items-center gap-1 ms-auto ms-lg-3">
-                    <div class="dropdown">
-                        <a class="lh-icon-btn d-inline-flex align-items-center gap-2 text-decoration-none" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person"></i><span class="d-none d-md-inline fs-6">Batuhan</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="orders.html"><i class="bi bi-box-seam me-2"></i>Siparişlerim</a></li>
-                            <li><a class="dropdown-item" href="addresses.html"><i class="bi bi-geo-alt me-2"></i>Adreslerim</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <!-- Sadece User.IsInRole("Admin") ise -->
-                            <li><a class="dropdown-item" href="#"><i class="bi bi-speedometer2 me-2"></i>Yönetim paneli</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="login.html"><i class="bi bi-box-arrow-right me-2"></i>Çıkış yap</a></li>
-                        </ul>
-                    </div>
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <div class="dropdown">
+                            <a class="lh-icon-btn d-inline-flex align-items-center gap-2 text-decoration-none" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person"></i><span class="d-none d-md-inline fs-6">@User.Identity.Name</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" asp-controller="Orders" asp-action="Index"><i class="bi bi-box-seam me-2"></i>Siparişlerim</a></li>
+                                <li><a class="dropdown-item" asp-controller="Addresses" asp-action="Index"><i class="bi bi-geo-alt me-2"></i>Adreslerim</a></li>
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#"><i class="bi bi-speedometer2 me-2"></i>Yönetim paneli</a></li>
+                                }
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form asp-controller="Account" asp-action="Logout" method="post">
+                                        <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right me-2"></i>Çıkış yap</button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                    else
+                    {
+                        <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Login">Giriş yap</a>
+                        <a class="btn btn-primary btn-sm" asp-controller="Account" asp-action="Register">Kayıt ol</a>
+                    }
                     <a class="lh-icon-btn" href="cart.html" aria-label="Sepet, 3 ürün"><i class="bi bi-bag"></i><span class="badge rounded-pill">3</span></a>
                 </div>
             </div>

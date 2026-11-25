@@ -1,0 +1,37 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Giriş yap";
+}
+
+<div class="container py-5" style="max-width:980px">
+    <div class="row g-0 lh-surface overflow-hidden" style="border-radius:1rem">
+        <div class="col-lg-6 d-none d-lg-flex flex-column justify-content-center lh-hero-media p-5" style="border-radius:1rem 0 0 1rem; place-items:initial">
+            <div class="lh-display fs-2 text-white mb-4">Loot<span class="text-accent">Hub</span></div>
+            <ul class="list-unstyled d-grid gap-3 mb-0">
+                <li><i class="bi bi-truck text-accent me-2"></i>Tüm siparişlerde ücretsiz kargo</li>
+                <li><i class="bi bi-shield-lock text-accent me-2"></i>iyzico ile güvenli ödeme</li>
+                <li><i class="bi bi-box-seam text-accent me-2"></i>Siparişlerini tek yerden takip et</li>
+            </ul>
+        </div>
+        <div class="col-lg-6 p-4 p-md-5">
+            <h1 class="h3 mb-1">Tekrar hoş geldin</h1>
+            <p class="text-secondary small mb-4">Siparişlerini görmek ve alışverişe devam etmek için giriş yap.</p>
+            <div asp-validation-summary="ModelOnly" class="text-danger small"><i class="bi bi-exclamation-circle me-2"></i>E-posta veya şifre hatalı.</div>
+            <form class="d-grid gap-3" asp-action="Login" method="post">
+                <div>
+                    <label asp-for="Email" class="form-label small">E-posta</label><input asp-for="Email" class="form-control" autocomplete="email"> <span asp-validation-for="Email" class="text-danger small"></span>
+                </div>
+
+                <div>
+                    <label asp-for="Password" class="form-label small">Şifre</label><input asp-for="Password" class="form-control" autocomplete="current-password" type="password"><span asp-validation-for="Password" class="text-danger small"></span>
+                </div>
+                <input asp-for="ReturnUrl" type="hidden">
+                <button class="btn btn-primary btn-lg mt-2">Giriş yap</button>
+            </form>
+            <p class="small text-secondary text-center mt-4 mb-0">Hesabın yok mu? <a asp-action="Register" class="text-accent">Kayıt ol</a></p>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
