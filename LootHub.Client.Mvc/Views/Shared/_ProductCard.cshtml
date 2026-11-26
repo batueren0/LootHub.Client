@@ -1,0 +1,19 @@
+﻿@model ProductSummaryResponse
+
+<article class="card lh-card h-100 position-relative">
+    <div class="lh-media">
+        <img src="@(Model.ImageUrl ?? ProductDisplay.CategoryImage(Model.CategoryName))" alt="@Model.Name" loading="lazy">
+    </div>
+    <div class="card-body d-flex flex-column gap-1">
+        <span class="lh-brand" lang="en">@Model.BrandName</span>
+        <a asp-controller="Shop" asp-action="Product" asp-route-slug="@Model.Slug" class="lh-card-title stretched-link">@Model.Name</a>
+        <div class="mt-2"><span class="lh-stock @ProductDisplay.StockCss(Model.Stock)">@ProductDisplay.StockLabel(Model.Stock)</span></div>
+        <div class="lh-price mt-auto pt-2">@ProductDisplay.Price(Model.Price)</div>
+    </div>
+    <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-3 position-relative z-2">
+        @* Faz 3: sepete ekleme burada bağlanacak *@
+        <button type="button" class="btn btn-outline-light btn-sm w-100" disabled="@(Model.Stock <= 0)">
+            <i class="bi bi-bag-plus me-1"></i>@(Model.Stock <= 0 ? "Tükendi" : "Sepete ekle")
+        </button>
+    </div>
+</article>
