@@ -3,7 +3,7 @@ using LootHub.Client.Application.DTOs.Auth;
 using LootHub.Client.Application.Services.Interfaces;
 using System.Net.Http.Json;
 
-namespace LootHub.Client.Application.Services;
+namespace LootHub.Client.Application.Services.Features;
 
 public class AuthService(IHttpClientFactory httpClientFactory) : IAuthService
 {

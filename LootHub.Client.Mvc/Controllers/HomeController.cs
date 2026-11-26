@@ -1,12 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LootHub.Client.Application.DTOs.Catalog;
+using LootHub.Client.Application.Services.Interfaces;
+using LootHub.Client.Mvc.Models;
+using Microsoft.AspNetCore.Mvc;
 
-namespace LootHub.Client.Mvc.Controllers
+namespace LootHub.Client.Mvc.Controllers;
+
+public class HomeController(
+    ICategoryService categoryService,
+    IProductService productService
+    ) : Controller
 {
-    public class HomeController : Controller
+    public async Task<IActionResult> Index(CancellationToken ct)
     {
-        public IActionResult Index()
+        var categories = await categoryService.GetAllAsync(ct);
+        var products = await productService.GetPagedAsync(new ProductQuery { PageSize = 8}  ,ct);
+
+        var model = new HomeViewModel
         {
-            return View();
-        }
+            Categories = categories.Data ?? [],
+            Products = products.Data?.Items ?? []
+        };
+
+        return View(model);
     }
 }

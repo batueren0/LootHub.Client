@@ -1,5 +1,5 @@
 ﻿using LootHub.Client.Application.Common;
-using LootHub.Client.Application.Services;
+using LootHub.Client.Application.Services.Features;
 using LootHub.Client.Application.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,12 +14,15 @@ public static class DependencyInjection
         services.AddHttpClient(ApiClient.Name, client =>
         {
             client.BaseAddress = baseAddress;
-        }).AddHttpMessageHandler<JwtAuthorizationHandler>();
+        }).AddHttpMessageHandler<ApiUnavailableHandler>().AddHttpMessageHandler<JwtAuthorizationHandler>();
 
         services.AddHttpContextAccessor();
 
+        services.AddTransient<ApiUnavailableHandler>();
         services.AddTransient<JwtAuthorizationHandler>();
         services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<ICategoryService, CategoryService>();
+        services.AddScoped<IProductService, ProductService>();
 
         return services;
     }

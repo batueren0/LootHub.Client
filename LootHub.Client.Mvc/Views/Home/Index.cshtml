@@ -1,4 +1,52 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Ana sayfa";
 }
-<div class="container py-5"><h1>LootHub çalışıyor</h1></div>
+
+<div class="container py-4">
+
+    <section class="mb-5">
+        <div class="d-flex justify-content-between align-items-end mb-3">
+            <h2 class="h3 mb-0">Kategoriler</h2>
+        </div>
+        <div class="row row-cols-2 row-cols-lg-4 g-3">
+            @foreach (var category in Model.Categories)
+            {
+                <div class="col">
+                    <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.Id" class="lh-surface lh-cat">
+                        <div class="lh-media"><img src="~/img/mouse.svg" alt=""></div>
+                        <div class="p-3 d-flex justify-content-between align-items-center">
+                            <span class="fw-semibold">@category.Name</span>
+                            <span class="small text-secondary">Ürünler <i class="bi bi-arrow-right"></i></span>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="mb-5">
+        <div class="d-flex justify-content-between align-items-end mb-3">
+            <h2 class="h3 mb-0">Yeni gelenler</h2>
+            <a asp-controller="Shop" asp-action="Index" class="small text-secondary">Tümünü gör <i class="bi bi-arrow-right"></i></a>
+        </div>
+        <div class="row row-cols-2 row-cols-md-3 row-cols-xl-4 g-3">
+            @foreach (var product in Model.Products)
+            {
+                <div class="col">
+                    <article class="card lh-card h-100 position-relative">
+                        <div class="lh-media"><img src="~/img/mouse.svg" alt="@product.Name"></div>
+                        <div class="card-body d-flex flex-column gap-1">
+                            <span class="lh-brand" lang="en">@product.BrandName</span>
+                            <a asp-controller="Shop" asp-action="Product" asp-route-slug="@product.Slug" class="lh-card-title">@product.Name</a>
+                            <div class="mt-2"><span class="lh-stock lh-stock-in">Stokta</span></div>
+                            <div class="lh-price mt-auto pt-2">@product.Price ₺</div>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pt-0 pb-3 px-3"><button class="btn btn-outline-light btn-sm w-100"><i class="bi bi-bag-plus me-1"></i>Sepete ekle</button></div>
+                    </article>
+                </div>
+            }
+        </div>
+    </section>
+
+</div>
