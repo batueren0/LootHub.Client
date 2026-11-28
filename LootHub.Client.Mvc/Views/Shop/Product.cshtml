@@ -1,0 +1,81 @@
+﻿@model ProductDetailResponse
+@{
+    ViewData["Title"] = Model.Name;
+    var inStock = Model.Stock > 0;
+    var maxQuantity = Math.Min(10, Model.Stock);
+}
+
+<div class="container py-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Ana sayfa</a></li>
+            <li class="breadcrumb-item"><a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@Model.CategoryId">@Model.CategoryName</a></li>
+            <li class="breadcrumb-item active" aria-current="page">@Model.Name</li>
+        </ol>
+    </nav>
+
+    <div class="row g-4 g-lg-5">
+        <div class="col-md-6">
+            <div class="lh-media lh-media-square">
+                <img src="@(Model.ImageUrl ?? ProductDisplay.CategoryImage(Model.CategoryName))" alt="@Model.Name">
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <span class="lh-brand" lang="en">@Model.BrandName</span>
+            <h1 class="h2 mt-1 mb-3">@Model.Name</h1>
+            <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
+                <span class="lh-price lh-price-lg">@ProductDisplay.Price(Model.Price)</span>
+                <span class="lh-stock @ProductDisplay.StockCss(Model.Stock)">@ProductDisplay.StockLabel(Model.Stock)</span>
+            </div>
+            <p class="text-secondary" style="white-space: pre-line">@Model.Description</p>
+
+            <form class="d-flex gap-2 my-4" asp-controller="Cart" asp-action="Add" method="post">
+                <input type="hidden" name="slug" value="@Model.Slug">
+                <input type="hidden" name="returnUrl" value="@(Context.Request.Path + Context.Request.QueryString)">
+                <div class="input-group" style="max-width:9rem">
+                    <button class="btn btn-outline-light" type="button" aria-label="Azalt" data-step="-1" disabled="@(!inStock)"><i class="bi bi-dash"></i></button>
+                    <input type="number" id="quantity" class="form-control text-center" name="quantity" value="1" min="1" max="@maxQuantity" aria-label="Adet" disabled="@(!inStock)">
+                    <button class="btn btn-outline-light" type="button" aria-label="Arttır" data-step="1" disabled="@(!inStock)"><i class="bi bi-plus"></i></button>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg flex-fill" disabled="@(!inStock)">
+                    <i class="bi bi-bag-plus me-2"></i>@(inStock ? "Sepete ekle" : "Tükendi")
+                </button>
+            </form>
+
+            <ul class="list-unstyled lh-surface p-3 d-grid gap-2 small mb-4">
+                <li><i class="bi bi-truck me-2 text-accent"></i>Ücretsiz kargo</li>
+                <li><i class="bi bi-shield-lock me-2 text-accent"></i>iyzico ile güvenli ödeme</li>
+                <li><i class="bi bi-info-circle me-2 text-accent"></i>Bir siparişte en fazla 10 adet</li>
+            </ul>
+
+            @if (Model.Properties.Count > 0)
+            {
+                <h2 class="h5">Teknik özellikler</h2>
+                <table class="table table-sm mb-0">
+                    <tbody>
+                        @foreach (var property in Model.Properties)
+                        {
+                            <tr>
+                                <th scope="row" class="text-secondary fw-normal w-50">@property.Name</th>
+                                <td>@property.Value</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // -/+ butonları adet kutusunu min/max sınırları içinde değiştirir
+        document.querySelectorAll('[data-step]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = document.getElementById('quantity');
+                if (btn.dataset.step === '1') input.stepUp(); else input.stepDown();
+            });
+        });
+    </script>
+}

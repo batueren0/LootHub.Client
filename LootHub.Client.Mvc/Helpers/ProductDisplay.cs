@@ -31,4 +31,13 @@ public static class ProductDisplay
         "monitör" or "monitor" => "/img/monitor.svg",
         _ => "/img/mouse.svg"
     };
+
+    public static string CategoryIcon(string categoryName) => categoryName.ToLowerInvariant() switch
+    {
+        "mouse" => "bi-mouse",
+        "klavye" or "keyboard" => "bi-keyboard",
+        "kulaklık" or "headset" => "bi-headset",
+        "monitör" or "monitor" => "bi-display",
+        _ => "bi-tag"
+    };
 }

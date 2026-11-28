@@ -29,4 +29,15 @@ public class ShopController(
 
         return View(model);
     }
+
+    public async Task<IActionResult> Product(string slug, CancellationToken ct = default)
+    {
+        var result = await productService.GetBySlugAsync(slug, ct);
+        if (!result.IsSuccess && result.StatusCode == 404)
+            return NotFound();
+        if (!result.IsSuccess)
+            return RedirectToAction("Index", "Home");
+
+        return View(result.Data);
+    }
 }

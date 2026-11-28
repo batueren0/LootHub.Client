@@ -8,6 +8,13 @@ namespace LootHub.Client.Application.Services.Features;
 
 public class ProductService(IHttpClientFactory httpClientFactory) : IProductService
 {
+    public async Task<ServiceResult<ProductDetailResponse>> GetBySlugAsync(string slug, CancellationToken ct = default)
+    {
+        var client = httpClientFactory.CreateClient(ApiClient.Name);
+        var response = await client.GetAsync($"products/{Uri.EscapeDataString(slug)}", ct);
+        return await response.ToResultAsync<ProductDetailResponse>();
+    }
+
     public async Task<ServiceResult<PagedResult<ProductSummaryResponse>>> GetPagedAsync(ProductQuery query, CancellationToken ct = default)
     {
         var parameters = new Dictionary<string, string?>

@@ -1,4 +1,8 @@
-﻿<!doctype html>
+﻿@inject LootHub.Client.Mvc.Services.ICartService CartService
+@{
+    var cartCount = CartService.Count();
+}
+<!doctype html>
 <html lang="tr" data-bs-theme="dark">
 <head>
     <meta charset="utf-8">
@@ -22,7 +26,7 @@
         <nav class="navbar navbar-expand-lg py-2">
             <div class="container">
                 <a class="navbar-brand me-4" href="index.html">Loot<span>Hub</span></a>
-                <form class="lh-search d-none d-lg-flex flex-grow-1 me-auto" role="search" action="products.html">
+                <form class="lh-search d-none d-lg-flex flex-grow-1 me-auto" role="search" method="get" asp-controller="Shop" asp-action="Index">
                     <div class="input-group">
                         <input class="form-control" type="search" name="search" placeholder="Mouse, klavye, kulaklık ara..." aria-label="Ürün ara">
                         <button class="btn" type="submit" aria-label="Ara"><i class="bi bi-search"></i></button>
@@ -57,26 +61,38 @@
                         <a class="btn btn-outline-light btn-sm" asp-controller="Account" asp-action="Login">Giriş yap</a>
                         <a class="btn btn-primary btn-sm" asp-controller="Account" asp-action="Register">Kayıt ol</a>
                     }
-                    <a class="lh-icon-btn" href="cart.html" aria-label="Sepet, 3 ürün"><i class="bi bi-bag"></i><span class="badge rounded-pill">3</span></a>
+                    <a class="lh-icon-btn" asp-controller="Cart" asp-action="Index" aria-label="Sepet, @cartCount ürün"><i class="bi bi-bag"></i>@if (cartCount > 0) { <span class="badge rounded-pill">@cartCount</span> }</a>
                 </div>
             </div>
         </nav>
         <!-- Kategori çubuğu: GET /api/categories -->
         <div class="lh-catbar">
             <div class="container d-flex gap-4 overflow-auto">
-                <a href="products.html"><i class="bi bi-grid"></i>Tüm ürünler</a>
-                <a href="products.html"><i class="bi bi-mouse"></i>Mouse</a>
-                <a href="products.html"><i class="bi bi-keyboard"></i>Klavye</a>
-                <a href="products.html"><i class="bi bi-headset"></i>Kulaklık</a>
-                <a href="products.html"><i class="bi bi-display"></i>Monitör</a>
-                <form class="d-lg-none ms-auto py-1" role="search" action="products.html">
-                    <a href="products.html" aria-label="Ara"><i class="bi bi-search"></i></a>
-                </form>
+                @await Component.InvokeAsync("CategoryMenu")
+                <a class="d-lg-none ms-auto py-1" asp-controller="Shop" asp-action="Index" aria-label="Ara"><i class="bi bi-search"></i></a>
             </div>
         </div>
     </header>
 
     <main>
+        @if (TempData["Success"] is string success)
+        {
+            <div class="container mt-3">
+                <div class="alert alert-success alert-dismissible fade show mb-0" role="status">
+                    <i class="bi bi-check-circle me-2"></i>@success
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+                </div>
+            </div>
+        }
+        @if (TempData["Error"] is string error)
+        {
+            <div class="container mt-3">
+                <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+                    <i class="bi bi-exclamation-circle me-2"></i>@error
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Kapat"></button>
+                </div>
+            </div>
+        }
         @RenderBody()
     </main>
 
@@ -95,7 +111,7 @@
             </div>
             <div class="col-6 col-lg-2">
                 <h3>Hesabım</h3>
-                <ul class="list-unstyled d-grid gap-2 mb-0"><li><a href="orders.html">Siparişlerim</a></li><li><a href="addresses.html">Adreslerim</a></li><li><a href="cart.html">Sepetim</a></li></ul>
+                <ul class="list-unstyled d-grid gap-2 mb-0"><li><a href="orders.html">Siparişlerim</a></li><li><a href="addresses.html">Adreslerim</a></li><li><a asp-controller="Cart" asp-action="Index">Sepetim</a></li></ul>
             </div>
             <div class="col-lg-4">
                 <h3>Güvenli ödeme</h3>

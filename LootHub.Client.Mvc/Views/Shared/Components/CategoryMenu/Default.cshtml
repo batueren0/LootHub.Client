@@ -1,0 +1,7 @@
+﻿@model IReadOnlyList<CategoryResponse>
+
+<a asp-controller="Shop" asp-action="Index"><i class="bi bi-grid"></i>Tüm ürünler</a>
+@foreach (var category in Model)
+{
+    <a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.Id"><i class="bi @ProductDisplay.CategoryIcon(category.Name)"></i>@category.Name</a>
+}
