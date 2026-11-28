@@ -1,0 +1,25 @@
+﻿@model AddressFormViewModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger small"></div>
+<div>
+    <label asp-for="Title" class="form-label small">Başlık</label>
+    <input asp-for="Title" class="form-control" placeholder="Ev, İş...">
+    <span asp-validation-for="Title" class="text-danger small"></span>
+</div>
+<div>
+    <label asp-for="Details" class="form-label small">Adres</label>
+    <textarea asp-for="Details" class="form-control" rows="3" autocomplete="street-address"></textarea>
+    <span asp-validation-for="Details" class="text-danger small"></span>
+</div>
+<div class="row g-2">
+    <div class="col">
+        <label asp-for="City" class="form-label small">Şehir</label>
+        <input asp-for="City" class="form-control" autocomplete="address-level1">
+        <span asp-validation-for="City" class="text-danger small"></span>
+    </div>
+    <div class="col">
+        <label asp-for="Country" class="form-label small">Ülke</label>
+        <input asp-for="Country" class="form-control" autocomplete="country-name">
+        <span asp-validation-for="Country" class="text-danger small"></span>
+    </div>
+</div>

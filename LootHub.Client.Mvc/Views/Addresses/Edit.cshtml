@@ -1,0 +1,26 @@
+﻿@model AddressFormViewModel
+@{
+    ViewData["Title"] = "Adresi düzenle";
+}
+
+<div class="container py-4" style="max-width:640px">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a asp-action="Index">Adreslerim</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Adresi düzenle</li>
+        </ol>
+    </nav>
+    <h1 class="h2 mb-4">Adresi düzenle</h1>
+
+    <form asp-action="Edit" asp-route-id="@ViewContext.RouteData.Values["id"]" method="post" class="lh-surface p-4 d-grid gap-3">
+        <partial name="_AddressForm" model="Model" />
+        <div class="d-flex justify-content-end gap-2 mt-2">
+            <a asp-action="Index" class="btn btn-outline-light">Vazgeç</a>
+            <button type="submit" class="btn btn-primary">Güncelle</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
